@@ -1,6 +1,7 @@
 
 import React from "react";
 import './App.css';
+import Steps from'./components/Steps';
 
 const tempMin = -20
 const tempMax = 40;
@@ -13,8 +14,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
-         
+        <div className="row" >
+         <Steps></Steps>
           <p>Heart {heartMin} </p>
           <p>Temperature {tempMin} </p>
           <p>Steps {stepsMin} </p>

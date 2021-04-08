@@ -1,9 +1,9 @@
-.box:nth-child(even){
-    background-color:#CCCCCC
+.box:nth-child(odd){
+    background-color:#CCC;
 }
 
-.box:nth-child(odd){
-    background-color:#aaaaaa
+.box:nth-child(even){
+    background-color:#aaa;
 }
 
 .box{

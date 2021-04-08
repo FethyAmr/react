@@ -1,8 +1,8 @@
 
 import React from "react";
-import './App.css';
+import './styles/global.css';
+
 import Box from './components/Box';
-import './styles/global.css'
 
 const tempMin = -20
 const tempMax = 40;

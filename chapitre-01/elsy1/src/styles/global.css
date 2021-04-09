@@ -3,7 +3,7 @@
 }
 
 .box:nth-child(even){
-    background-color:rgb(212, 23, 23);
+    background-color:#aaa;
 }
 
 .box{

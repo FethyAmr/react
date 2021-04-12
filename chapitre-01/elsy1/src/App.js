@@ -1,8 +1,8 @@
 
 import React from "react";
-import "./"
-
-import Box from './components/Box';
+import "./styles/global.css";
+import "./App.css"
+import Box from './components/Box.jsx';
 
 const tempMin = -20
 const tempMax = 40;
@@ -18,7 +18,7 @@ class App extends React.Component {
       <div className="container-fluid">
         <div className="row">
           {/* Water */}
-          <Box icon ="local_drink" color="#3A85FF" value={1.5} unit="L"></Box>
+          <Box icon ="local_drink" color={"#3A85FF"} value={1.5} unit="L"></Box>
           {/* Steps */}
           <Box icon ="directions_walk" color="black" value={3000} unit="steps"></Box>
           {/* Heart */}

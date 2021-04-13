@@ -6,7 +6,7 @@ class Box extends React.Component {
     
     render() {
        
-        if(this.props.icon !== 'local_drink')
+        if(this.props.icon !== "local_drink")
         return(<>
        
         <div className="box col-sm-3 col-3" style={{textAlign:"center"}} >
@@ -21,9 +21,10 @@ class Box extends React.Component {
                 <p>{this.props.value} {this.props.unit}</p>
         
             </div>
-        );
+         );
     }
 }
+
 
 export default Box;
 

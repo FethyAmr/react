@@ -7,7 +7,7 @@ import ReactBootstrapStyle from '@bit/react-bootstrap.react-bootstrap.internal.s
 
 class Example {
 
-  render() {
+  render() {&    &
 
     return (
       <Form>

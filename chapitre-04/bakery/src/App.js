@@ -69,8 +69,12 @@ class App extends React.Component {
           <List />
           <Pay />
           <Button />
-          
-        </div> 
+
+        </div>
+        <h1 className="h1" style={{textAlign: 'center'}}>Bakery</h1>
+        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectAdd} >Add</button>
+        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectList} >List</button>
+        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectPay} >Pay</button>
       </div>
 
 
@@ -79,3 +83,6 @@ class App extends React.Component {
 }
 
 export default App
+
+
+

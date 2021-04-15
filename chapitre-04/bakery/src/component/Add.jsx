@@ -2,12 +2,23 @@ import React from 'react'
 
 
 class Add extends React.Component {
-    render () {
+    
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+           productName: " ",
+           price: 1
+        };
+    
+    
+    render (){ 
         return (
             <div>
-                <h1></h1>
+
             </div>
         )
+        
     }
 }
 export default Add

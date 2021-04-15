@@ -5,7 +5,7 @@ class Add extends React.Component {
     render () {
         return (
             <div>
-                <h1>Add.jsx</h1>
+                <h1></h1>
             </div>
         )
     }

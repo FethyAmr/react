@@ -19,43 +19,25 @@ class App extends React.Component {
     this.selectAdd = this.selectAdd.bind(this);
     this.selectList = this.selectList.bind(this);
     this.selectPay = this.selectPay.bind(this);
-    this.addItem = this.addItem.bind(this);
-    this.deleteFunc = this.deleteFunc.bind(this);
+    
+   
   }
 
 
   selectAdd() {
-    this.setState({ activeTab: 'add' });
+    this.setState({ activeTab: 'Add' });
   }
 
   selectList() {
-    this.setState({ activeTab: 'list' });
+    this.setState({ activeTab: 'List' });
   }
 
   selectPay() {
-    this.setState({ activeTab: 'pay' });
+    this.setState({ activeTab: 'Pay' });
   }
 
-  addItem(theName, thePrice) {
-    const newItem = {
-      name: theName,
-      price: thePrice
-    };
-    const updateItems = this.state.items;
+  
 
-    updateItems.push(newItem);
-
-    this.setState({ items: updateItems });
-    this.selectList()
-  }
-
-  deleteFunc() {
-    const arrayItems = this.state.items;
-
-    arrayItems.pop()
-
-    this.setState({ items: arrayItems });
-  }
 
 
 
@@ -68,13 +50,16 @@ class App extends React.Component {
           <Add />
           <List />
           <Pay />
-          <Button />
+         
 
         </div>
         <h1 className="h1" style={{textAlign: 'center'}}>Bakery</h1>
         <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectAdd} >Add</button>
         <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectList} >List</button>
         <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectPay} >Pay</button>
+       
+        <Button className="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectAdd}></Button>
+
       </div>
 
 

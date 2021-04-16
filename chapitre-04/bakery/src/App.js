@@ -1,73 +1,84 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Add from "./component/Add"
-import List from "./component/List"
-import Pay from "./component/Pay"
-import Button from "./component/Button"
+import List from './component/List'
+import Pay from './component/Pay'
+import Button from './component/Button'
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
-      activeTab: 'add',
+      activeTab: "add",
       items: []
-    };
+    }
 
-
-    this.selectAdd = this.selectAdd.bind(this);
-    this.selectList = this.selectList.bind(this);
-    this.selectPay = this.selectPay.bind(this);
-    
-   
+    this.selectAdd = this.selectAdd.bind(this)
+    this.selectList = this.selectList.bind(this)
+    this.selectPay = this.selectPay.bind(this)
   }
 
-
   selectAdd() {
-    this.setState({ activeTab: 'Add' });
+    this.setState({ activeTab: "add" })
   }
 
   selectList() {
-    this.setState({ activeTab: 'List' });
+  this.setState({ activeTab: "list" })
   }
 
   selectPay() {
-    this.setState({ activeTab: 'Pay' });
+    this.setState({ activeTab: "pay" })
   }
 
-  
+  renderTab() {
+    if (this.state.activeTab === "add") {
+      return (
+        <section>
+          <Add />
+        </section>
+      )
 
+    } else if (this.state.activeTab === "list") {
+      return (
+        <section>
+          <List />
+        </section>
+      )
 
-
+    } else if (this.state.activeTab === "pay") {
+      return (
+        <section>
+          <Pay />
+        </section>
+      )
+    }
+  }
 
   render() {
     return (
 
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container d-flex justify-content-center ">
+        <div className="d-flex flex-column" style={{ width: 600 }}>
 
-          <Add />
-          <List />
-          <Pay />
-         
+
+          <h1 className="h1" style={{ textAlign: "center" }}>Bakery</h1>
+          <div className="d-flex flex-row justify-content-start">
+
+            <Button isSelected={this.state.activeTab === "add" ? "btn btn-primary" : "btn btn-light"} onClick={this.selectAdd} >Add</Button>
+            <Button isSelected={this.state.activeTab === "list" ? "btn btn-primary" : "btn btn-light"} onClick={this.selectList} >List</Button>
+            <Button isSelected={this.state.activeTab === "pay" ? "btn btn-primary" : "btn btn-light"} onClick={this.selectPay} >Pay</Button>
+
+          </div>
+
+          {this.renderTab()}
 
         </div>
-        <h1 className="h1" style={{textAlign: 'center'}}>Bakery</h1>
-        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectAdd} >Add</button>
-        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectList} >List</button>
-        <button type="button" class="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectPay} >Pay</button>
-       
-        <Button className="btn btn-outline-primary" isSelected={this.state.activeTab} onClick={this.selectAdd}></Button>
-
       </div>
-
 
     );
   }
 }
 
 export default App
-
-
-

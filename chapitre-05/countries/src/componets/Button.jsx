@@ -1,10 +1,9 @@
 import React from "react";
 class Button extends React.Component {
     render() {
+        const countryName = this.props.children
         return (
-                <button type="button" className="btn btn-primary" onClick = {this.props.onClick} 
-                        children={this.props.children}>
-                        </button>
+            <button type="button" class="btn btn-primary" onClick={() => this.props.onClick(countryName)}>{countryName}</button>
         )
     }
 }

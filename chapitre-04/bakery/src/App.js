@@ -1,9 +1,9 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Add from "./component/Add"
-import List from './component/List'
-import Pay from './component/Pay'
-import Button from './component/Button'
+import Add from "./components/Add"
+import List from './components/List'
+import Pay from './components/Pay'
+import Button from './components/Button'
 
 class App extends React.Component {
 

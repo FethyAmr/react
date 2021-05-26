@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../Card';
+import { getMovie } from '../../utils/Api';
 
 
 class Favorites extends React.Component {
@@ -9,61 +10,47 @@ class Favorites extends React.Component {
 
         this.state = {
             movies: [],
-            favIDs: this.getStorage()
+            favIDs: this.getStorage(),
+            finish: false
         }
 
         this.getStorage = this.getStorage.bind(this)
-        this.getMovie = this.getMovie.bind(this)
     }
 
 
     componentDidMount() {
-        
-if (this.state.favIDs.length !== -1) {
 
-    const arrayMovies = this.state.favIDs.map(id => {
-        return this.getMovie(id)
-    })   
-}
-       
+        if (this.state.favIDs !== null) {
 
+            const arrayMovies = [];
+            let count = 0;
+            this.state.favIDs.forEach(id => {
+                count++
+                getMovie(id)
+                    .then(res => {
+                     arrayMovies.push(res)
+                    })
+            })
+
+        if(this.state.favIDs.length === count) {
+           console.log("salut", arrayMovies)
+            this.setState({
+                movies: arrayMovies,
+                finish : true
+            })
+        }
+        }
     }
 
 
     getStorage() {
-       
-
         return JSON.parse(localStorage.getItem("favorites"));
     }
 
 
-    getMovie(id) {
-
-        fetch(`http://localhost:8000/movie/${id}`)
-            .then(res => res.json())
-            .then(movie => {
-                const newArray = this.state.movies
-                let newMovie = {
-                    image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-                    title: movie.title,
-                    year: movie.release_date,
-                    description: movie.overview
-                }
-                newArray.push(newMovie)
-
-                this.setState({
-                    movies: newArray
-                })
-
-                
-            })
-
-    }
-
-
     render() {
-        if (this.state.movies[0] !== undefined) {
-
+        if (this.state.finish) {
+console.log('state movies', this.state.movies)
             return (
                 <div>
                     <h1>Favorites</h1>
@@ -79,6 +66,7 @@ if (this.state.favIDs.length !== -1) {
                 </div>
             )
         } else {
+            console.log("ya un probleme mec")
             return (
                 <h1>Favorites</h1>
             )

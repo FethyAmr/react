@@ -1,55 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useState } from "react"
 import axios from 'axios'
 
 const Login = () => {
-    let history = useHistory()
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const [wrongLogin, setWrongLogin] = useState(false)
+    const [connected, setConnected] = useState(false)
 
-    useEffect(() => {
-        const token = localStorage.getItem("token") || false
-
-        if (token) {
-            history.push("/admin")
-        }
-    }, [])
-
-    const login = async () => {
+    const funcToLogin = async () => {
         try {
-            const response = await axios.post("http://localhost:8003/auth/login", { username, password })
+
+            const response = await axios.post('http://localhost:8000/login',
+                { email, password })
+
+            console.log(response);
 
             if (response.status === 200) {
-                localStorage.setItem("token", response.data.token)
-                history.push("/admin")
+                localStorage.setItem('token', response.data.token)
+                setConnected(true)
             }
         } catch (error) {
-            console.error(error)
+            setWrongLogin(true)
+            console.log(error);
         }
     }
 
-    return (
-        <div className="row">
-            <div className="offset-3 col-6 mx-auto">
-                <div className="mb-3 row">
-                    <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="username" onChange={(e) => setUsername(e.target.value)} />
-                    </div>
-                </div>
-                <div className="mb-3 row">
-                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                    <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                </div>
-                <div className="mb-3 row">
-                    <button type="submit" className="btn btn-primary mb-3" onClick={login}>Login</button>
-                </div>
+    if (connected) {
+        return (
+            <div>
+                <h3>You are connected</h3>
             </div>
-        </div>
-    );
+        )
+    } else {
+        return (
+            <div>
+
+                <h1 className="mb-3">Login</h1>
+
+                {wrongLogin && <h3>wrong email or password</h3>}
+
+                <div className="form-group mb-3">
+                    <label forHtml="exampleInputEmail1">Email address</label>
+                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="exampleInputPassword1">Password</label>
+                    <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                </div>
+
+                <button onClick={funcToLogin} type="submit" className="btn btn-primary">Submit</button>
+
+            </div>
+        )
+    }
 }
 
-export default Login;
+export default Login

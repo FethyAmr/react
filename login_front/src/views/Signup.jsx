@@ -1,99 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 import axios from 'axios'
 
-const Signup = () => {
-    let history = useHistory()
+const SignUp = () => {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [role, setRole] = useState(2);
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const [firstname, setFirstname] = useState()
+    const [surname, setSurname] = useState()
+    const [date_of_birth, setDate_of_birth] = useState()
+    const [registered, setRegistered] = useState(false)
+    const [signupFail, setSignupFail] = useState(false)
 
-    const [userCreated, setUserCreated] = useState(false);
 
-    useEffect(() => {
-        const token = localStorage.getItem("token") || false
-
-        if (token) {
-            history.push("/admin")
-        }
-    }, [])
-
-    const signup = async () => {
+    const funcToSubmit = async () => {
         try {
-            const response = await axios.post("http://localhost:8003/auth/signup", { username, password, role })
-
-            console.log(response);
+            const response = await axios.post('http://localhost:8000/signup', 
+            { email, password, firstname, surname, date_of_birth })
             if (response.status === 200) {
-                setUserCreated(true)
+                setRegistered(true)
+            } else {
+                setSignupFail(true)
             }
         } catch (error) {
-            console.error(error)
+            setSignupFail(true)
+            console.log(error);
         }
     }
 
-    if (userCreated) {
-        return ("User created!")
+    if (registered) {
+        return (
+            <div>
+                registered with success
+            </div>
+        )
+    } else if (signupFail) {
+        return (
+            <div>
+                there are a problem in your registration, try again please
+            </div>
+        )
     } else {
         return (
-            <div className="row">
-                <div className="offset-3 col-6 mx-auto">
-                <div className="mb-3 row">
-                        <label htmlFor="username" className="col-sm-2 col-form-label">First name</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="username" className="col-sm-2 col-form-label">Surname</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="username" className="col-sm-2 col-form-label">Username</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="username" className="col-sm-2 col-form-label">Date of birth</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                        <div className="col-sm-10">
-                            <input type="password" className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Confirm Password</label>
-                        <div className="col-sm-10">
-                            <input type="password" className="form-control" id="inputPassword" onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="username" className="col-sm-2 col-form-label">Email</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="username" onChange={(e) => (e.target.value)} />
-                        </div>
-                    </div>
-                    
-                    <div className="mb-3 row">
-                        <label htmlFor="inputRole" className="col-sm-2 col-form-label">Role</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="inputRole" onChange={(e) => setRole(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <button type="submit" className="btn btn-primary mb-3" onClick={signup}>Signup</button>
-                    </div>
+            <div className='signup'>
+                <h1 className="mb-3">Sign Up</h1>
+
+                <div className="form-group mb-3">
+                    <label forHtml="exampleInputEmail1">Email address</label>
+                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="exampleInputPassword1">Password</label>
+                    <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="exampleInputPassword1">Confirm password</label>
+                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="firstnam">Firstname</label>
+                    <input onChange={(e) => setFirstname(e.target.value)} type="text" className="form-control" id="firstname" aria-describedby="firstname" placeholder="Enter firstname" />
+                </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="surname">Surname</label>
+                    <input onChange={(e) => setSurname(e.target.value)} type="text" className="form-control" id="surname" aria-describedby="surname" placeholder="Enter surname" />
+                </div>
+
+                <div className="form-group mb-3">
+                    <label forHtml="date_of_birth">Date of birth</label>
+                    <input onChange={(e) => setDate_of_birth(e.target.value)} type="date" className="form-control" id="date_of_birth" aria-describedby="date_of_birth" placeholder="Enter Date of birth" />
+                </div>
+
+                <button onClick={funcToSubmit} type="submit" className="btn btn-primary">Submit</button>
+
             </div>
-        );
+        )
     }
 }
 
-export default Signup;
+export default SignUp
